@@ -34,7 +34,7 @@ def _main(blog_dir, notebook_path, title, tags, category):
 
     """
     if not title:
-        title = os.path.splitext("notebook_path")[0]  # todo make so this is only
+        title = os.path.splitext("notebook_path")[0]  # extracts only the file name from the full dir
 
     make_md(blog_dir, title, tags, category)
     copy_notebook(notebook_path, blog_dir, title)
@@ -45,7 +45,7 @@ def make_md(blog_dir, title, tags, category):
     """
     Makes a markdown file using the current date and other fields
     """
-    md_dir = blog_dir + 'content/' + title + '.md'
+    md_dir = os.path.join(blog_dir, 'content/', title, '.md')
 
     if os.path.exists(md_dir):
         raise IOError("Post with this title already exists")
@@ -81,7 +81,7 @@ def copy_notebook(notebook_path, blog_dir, title):
     Moves notebook from its original location to the
     """
     
-    copy_full_path = os.join(blog_dir, 'content/notebooks/',
+    copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
                              title.replace(' ', '_'), '.ipynb')
 
     shutil.copy(notebook_path, copy_full_path)

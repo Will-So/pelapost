@@ -7,7 +7,7 @@ NOTEBOOK_DIR = TEST_DIR + 'content/notebooks/'
 
 SKIP_PUBLISH = True
 
-@pytest.mark.xfail(raises=IOError)
+@pytest.mark.xfail(raises=IOError, reason="Post with this title already exists")
 def test_markdown_safe():
     """
     Tests that we cannot write to a directory twice
