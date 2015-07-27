@@ -3,6 +3,7 @@
 # http://docs.getpelican.com/en/3.0/tips.html
 #TODO Fix one tag problem
 #TODO make sure that replace with underscores works
+# TODO Make sure that the cleanup works
 
 import click
 import os
@@ -39,6 +40,7 @@ def _main(blog_dir, notebook_path, title, tags, category):
     make_md(blog_dir, title, tags, category)
     copy_notebook(notebook_path, blog_dir, title)
     publish(blog_dir)
+    clean_notebook_path(notebook_path)
 
 
 def make_md(blog_dir, title, tags, category):
@@ -86,6 +88,12 @@ def copy_notebook(notebook_path, blog_dir, title):
 
     shutil.copy(notebook_path, copy_full_path)
 
+
+def clean_notebook_path(notebook_path):
+    """Moves the posted notebook file into its own directory so that
+    my notebook directory does not cluttered.
+    """
+    os.rename(notebook_path, os.path.join(notebook_path, '/posted'))
 
 if __name__ == '__main__':
     _main()
