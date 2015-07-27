@@ -11,12 +11,10 @@ This is a very short bash script that runs the necessary Pelican and github comm
 Python must have permission to write to the content directory in the pelican blog. 
 It also must have permission to execute the shell script. Both of these can be accomplished with chmod 777 pelican_dir
 
-
-
 # TODO
 
 - Make a one time configuration option to set the default blog directory without changing the code
 
 
 # Testing
-To run the tests, you need to make sure that python has permission to write to the test directory. 
+To run the tests, you need to make sure that python has permission to write to the test directory.
