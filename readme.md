@@ -2,8 +2,31 @@
 This CLI allows posting Ipython notebooks to your Pelican-powered blog.
 
 # Example
-./pelican_auto_post.py --tags *Nix --tags CLI  --title sqlite3
+./pelican_auto_post.py --tag *Nix --tag CLI  --title sqlite3
 Enter the full notebook path: /Users/Will/Devel/blog_posts/sqlite3_CLI.ipynb
+
+## Syntax after optional configuration:
+pac --tag *Nix --tag CLI  --title sqlite3
+Enter the full notebook path: /Users/Will/Devel/blog_posts/sqlite3_CLI.ipynb
+
+
+# Basic Configuartion
+From the main script, we need to configure
+
+1. The `BLOG_DIR` variable. This is the directory where your website is located
+2. The `AUTHOR` variable. 
+
+# Optional Configuration: Running the Script from anywhere
+It is also possible to configure your computer so we can all the script from any directory in the terminal. 
+If you have never done this before, the steps are as follows:
+
+1. Make a directory where you will store this and future CLIs. The directory I use is `~/scripts`. I also renamed this script to pac 
+for convenience. 
+2. Append this directory to your PYTHON_PATH. In OS X this is done by editing the `.bash_profile` file in the home directory. 
+For me this is `PYTHONPATH=“:/Users/Will/Devel:/Users/Will/scripts”` 
+    
+
+
 
 # publish.sh
 This is a very short bash script that runs the necessary Pelican and github commands to publish the file to the website. 
@@ -13,7 +36,10 @@ It also must have permission to execute the shell script. Both of these can be a
 
 # TODO
 
-- Make a one time configuration option to set the default blog directory without changing the code
+[ ]  Make a one time configuration option to set the default blog directory without changing the code
+[ ] Test functionality one more time. Write appropriate unit tests (clean-up and tag handling)
+[ ] Allow notebook path to be the current path
+
 
 
 # Testing
