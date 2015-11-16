@@ -44,3 +44,13 @@ It also must have permission to execute the shell script. Both of these can be a
 
 # Testing
 To run the tests, you need to make sure that python has permission to write to the test directory.
+
+# Troubleshooting
+## [Errno 2]
+There are two possible causes for this error. Depending on your OS, the script might not have write access to
+your blog's directory. In this case, the solution is to use `chmod` to change the access rights.
+`[Errno 2] No such file or directory: '/Users/Will/Devel/tec_blog/content/`
+`chmod a+w /Users/Will/Devel/tec_blog/content/`
+
+The second possibility is that the directory does not exist. For example, perhaps you typed in `/Users/Will/Devel/content`, forgetting
+the `tech_blog` part. 

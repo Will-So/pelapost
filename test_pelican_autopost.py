@@ -1,5 +1,5 @@
 import pytest
-from pelican_auto_post import make_md, publish, copy_notebook, BLOG_DIR
+from pelapost import make_md, publish, copy_notebook, BLOG_DIR
 import os
 
 TEST_DIR = '/Users/Will/Devel/pelican_autopost/testdir/'
