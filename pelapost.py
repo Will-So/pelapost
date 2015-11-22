@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Assumptions:
-
+    1. Configuration file is pelicanconf.py
+    
 Needed to Generalize:
     1. init for author, blog_dir and posted_dir
 

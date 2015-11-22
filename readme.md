@@ -1,16 +1,22 @@
 # Pelican Auto Post
 This CLI allows posting Ipython notebooks to your Pelican-powered blog.
 
+Note: This is not yet ready for general use.
+
 # Example
-./pelican_auto_post.py --tag *Nix --tag CLI  --title sqlite3
-Enter the full notebook path: /Users/Will/Devel/blog_posts/sqlite3_CLI.ipynb
+Once installed and configured:
 
-## Syntax after optional configuration:
-pac --tag *Nix --tag CLI  --title sqlite3
-Enter the full notebook path: /Users/Will/Devel/blog_posts/sqlite3_CLI.ipynb
+pelapost
+>>> Enter the full notebook path:  /Users/Will/Devel/blog_posts/sqlite3_CLI.ipynb
+>>> Enter the title. Must be unique: Working with SQLITE3
+>>> Enter the tags: CLI 
+
+The post will then be posted to your pelican blog automatically. 
 
 
-# Basic Configuartion
+# Installation:
+
+## Basic Configuartion
 From the main script, we need to configure
 
 1. The `BLOG_DIR` variable. This is the directory where your website is located
