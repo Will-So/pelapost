@@ -23,10 +23,11 @@ import arrow
 import subprocess
 import shutil
 import re
+import config
 
-BLOG_DIR = '/Users/Will/Devel/tec_blog/'
-AUTHOR = 'Will Sorenson'
-POSTED_DIR = '/Users/Will/Devel/blog_posts/posted/'
+BLOG_DIR = config.BLOG_DIR
+AUTHOR = config.AUTHOR
+POSTED_DIR = config.POSTED_DIR
 
 
 @click.command()
