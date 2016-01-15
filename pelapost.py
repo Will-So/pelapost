@@ -2,7 +2,7 @@
 """
 Assumptions:
     1. Configuration file is pelicanconf.py
-    
+
 Needed to Generalize:
     1. init for author, blog_dir and posted_dir
 
@@ -11,7 +11,7 @@ Lessons Learned:
         - title is currently the file
 """
 # http://docs.getpelican.com/en/3.0/tips.html
-#TODO make sure that replace with underscores works
+# TODO make sure that replace with underscores works
 # TODO Make sure that the cleanup works
 # TODO Verify that Stripping works. It may not
 # TODO Allow the notebook path to be the current path
@@ -33,7 +33,7 @@ POSTED_DIR = '/Users/Will/Devel/blog_posts/posted/'
 @click.option('--blog-dir', default=BLOG_DIR)
 @click.option('--notebook-path', prompt='Enter the full notebook path')
 @click.option('--title', prompt='enter the title. Must be unique', default=None)
-@click.option('--tags', prompt='enter a tags. Seperate tags with a space')
+@click.option('--tags', prompt='enter a tag. Seperate tags with a space')
 @click.option('--category', default=None)
 def _main(blog_dir, notebook_path, title, tags, category):
     """
@@ -118,11 +118,6 @@ def clean_notebook_path(notebook_path, title):
     my notebook directory does not cluttered.
     """
     os.rename(notebook_path, os.path.join(notebook_path, POSTED_DIR + title + '.ipynb'))
-
-
-
-# @click.command(short_help='Initialize the Script')
-# def init():
 
 
 if __name__ == '__main__':
