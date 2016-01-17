@@ -23,6 +23,7 @@ import arrow
 import subprocess
 import shutil
 import re
+
 import config
 
 BLOG_DIR = config.BLOG_DIR
@@ -41,6 +42,13 @@ def _main(blog_dir, notebook_path, title, tags, category):
     Simple program that takes the directory of a notebook
      (use `greadlink -f file.ipynb |  pbcopy`)
     and other parameters and then publishes it to my pelican blog.
+
+    :param blog_dir: string; absolute directory of the pelican blog
+    :param notebook_path: string; location of the
+    :param title: string; Title of the blog
+    :param tags: string; tags that the blo
+    :param category: category of the blog
+
     Examples
     ----
     ./pelapost.py --tag *Nix --tag CLI  --title sqlite3
@@ -97,7 +105,6 @@ def publish(blog_dir):
     Executes a bash script that processes the `contents` folder and then
     uploads that file to github.
     """
-    # Just execute a bash command in the main directory here
     # http://stackoverflow.com/questions/13745648/running-bash-script-from-within-python
     # http://www.textandhubris.com/automate-pelican-with-git.html
     subprocess.call(blog_dir + 'publish.sh')
@@ -105,9 +112,8 @@ def publish(blog_dir):
 
 def copy_notebook(notebook_path, blog_dir, title):
     """
-    Moves notebook from its original location to the
+    Moves notebook from its original location to the blog directory. Removes space s.t.
     """
-    
     copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
                              title.replace(' ', '_') + '.ipynb')
 
