@@ -17,14 +17,14 @@ Lessons Learned:
 # TODO Allow the notebook path to be the current path
 # TODO Make the clean logic a bit nicer
 
+import config
+
 import click
 import os
 import arrow
 import subprocess
 import shutil
 import re
-
-import config
 
 BLOG_DIR = config.BLOG_DIR
 AUTHOR = config.AUTHOR
@@ -68,14 +68,11 @@ def make_md(blog_dir, title, tags, category):
     """
     Makes a markdown file using the current date and other fields
 
-    ASSUMPTIONS:
-        1. blog_dir/content exits
-        2. There is only once space in the given title
-        3.
+    Assumptions:
+        1. blog_dir/content exits. This should be the case as long as Pelican is configured
     """
     md_dir = os.path.join(blog_dir, 'content/', title.replace(' ', '_') +'.md')
-
-    slug = title.replace(" ", "_")[:10] # Truncates the title if the slug is too long
+    slug = re.sub('\s+', '_' ,title)[:10] # Truncates the title if the slug is too long
 
     if not os.path.exists(blog_dir):
         raise IOError("Can't see {}. Check that it exists and that it is accessible.".format(blog_dir))
@@ -115,7 +112,7 @@ def copy_notebook(notebook_path, blog_dir, title):
     Moves notebook from its original location to the blog directory. Removes space s.t.
     """
     copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
-                             title.replace(' ', '_') + '.ipynb')
+                                  re.sub('\s+', '_', title) + '.ipynb')
 
     shutil.copy(notebook_path.strip(), copy_full_path) # strip() removes trailing space
 
