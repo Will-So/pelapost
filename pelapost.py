@@ -57,11 +57,11 @@ def _main(blog_dir, notebook_path, title, tags, category):
     """
     if not title:
         title = os.path.basename(notebook_path)  # extracts only the file name from the full dir
-
-    make_md(blog_dir, title, tags, category)
-    copy_notebook(notebook_path, blog_dir, title)
+    title_no_space = re.sub('\s+', '_', title)
+    make_md(blog_dir, title_no_space, tags, category)
+    copy_notebook(notebook_path, blog_dir, title_no_space)
     publish(blog_dir)
-    clean_notebook_path(notebook_path, title.replace(' ', '_'))
+    clean_notebook_path(notebook_path, title, POSTED_DIR)
 
 
 def make_md(blog_dir, title, tags, category):
@@ -71,8 +71,8 @@ def make_md(blog_dir, title, tags, category):
     Assumptions:
         1. blog_dir/content exits. This should be the case as long as Pelican is configured
     """
-    md_dir = os.path.join(blog_dir, 'content/', title.replace(' ', '_') +'.md')
-    slug = re.sub('\s+', '_' ,title)[:10] # Truncates the title if the slug is too long
+    md_dir = os.path.join(blog_dir, 'content/', title +'.md')
+    slug = title[:10] # Truncates the title if the slug is too long
 
     if not os.path.exists(blog_dir):
         raise IOError("Can't see {}. Check that it exists and that it is accessible.".format(blog_dir))
@@ -109,19 +109,19 @@ def publish(blog_dir):
 
 def copy_notebook(notebook_path, blog_dir, title):
     """
-    Moves notebook from its original location to the blog directory. Removes space s.t.
+    Moves notebook from its original location to the blog directory. Removes space.
     """
     copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
-                                  re.sub('\s+', '_', title) + '.ipynb')
+                                  title + '.ipynb')
 
     shutil.copy(notebook_path.strip(), copy_full_path) # strip() removes trailing space
 
 
-def clean_notebook_path(notebook_path, title):
+def clean_notebook_path(notebook_path, title, posted_dir):
     """Moves the posted notebook file into its own directory so that
     my notebook directory does not cluttered.
     """
-    os.rename(notebook_path, os.path.join(notebook_path, POSTED_DIR + title + '.ipynb'))
+    os.rename(notebook_path, os.path.join(notebook_path, posted_dir + title + '.ipynb'))
 
 
 if __name__ == '__main__':
