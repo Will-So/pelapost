@@ -1,21 +1,10 @@
 #!/usr/bin/env python3
 """
 Assumptions:
-    1. Configuration file is pelicanconf.py
-
-Needed to Generalize:
-    1. init for author, blog_dir and posted_dir
-
-Lessons Learned:
-    1. Make sure I write down exactly what title is because I just ended up changing it here.
-        - title is currently the file
+    1. Pelican Configuration file is pelicanconf.py
 """
-# http://docs.getpelican.com/en/3.0/tips.html
 # TODO make sure that replace with underscores works
 # TODO Make sure that the cleanup works
-# TODO Verify that Stripping works. It may not
-# TODO Allow the notebook path to be the current path
-# TODO Make the clean logic a bit nicer
 
 import config
 
@@ -33,7 +22,7 @@ POSTED_DIR = config.POSTED_DIR
 
 @click.command()
 @click.option('--blog-dir', default=BLOG_DIR)
-@click.option('--notebook-path', prompt='Enter the full notebook path')
+@click.option('--notebook-path', prompt='Enter the full notebook path.')
 @click.option('--title', prompt='enter the title. Must be unique', default=None)
 @click.option('--tags', prompt='enter a tag. Seperate tags with a space')
 @click.option('--category', default=None)
@@ -55,6 +44,7 @@ def _main(blog_dir, notebook_path, title, tags, category):
     Enter the full notebook path: ~/Devel/blog_posts/sqlite3_CLI.ipynb
 
     """
+    notebook_path = notebook_path.strip()  # Deals with case when there are trailing
     if not title:
         title = os.path.basename(notebook_path)  # extracts only the file name from the full dir
     title_no_space = re.sub('\s+', '_', title)
@@ -75,12 +65,10 @@ def make_md(blog_dir, title, tags, category):
     slug = title[:10] # Truncates the title if the slug is too long
 
     if not os.path.exists(blog_dir):
-        raise IOError("Can't see {}. Check that it exists and that it is accessible.".format(blog_dir))
+        raise IOError("Can't find {}. Check that it exists and that it is accessible.".format(blog_dir))
 
     if os.path.exists(md_dir):
         raise IOError("Post with this title already exists")
-
-    # import pdb; pdb.set_trace()
 
     with open(md_dir, 'w') as post:
         post.write(("Title: {0} \n"
@@ -114,7 +102,7 @@ def copy_notebook(notebook_path, blog_dir, title):
     copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
                                   title + '.ipynb')
 
-    shutil.copy(notebook_path.strip(), copy_full_path) # strip() removes trailing space
+    shutil.copy(notebook_path, copy_full_path)
 
 
 def clean_notebook_path(notebook_path, title, posted_dir):
