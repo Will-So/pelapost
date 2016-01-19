@@ -18,7 +18,6 @@ import re
 BLOG_DIR = config.BLOG_DIR
 AUTHOR = config.AUTHOR
 POSTED_DIR = config.POSTED_DIR
-GIT_USER_NAME = config.GIT_USER_NAME
 
 
 @click.command()
@@ -93,13 +92,14 @@ def publish(blog_dir):
     """
     # http://stackoverflow.com/questions/13745648/running-bash-script-from-within-python
     # http://www.textandhubris.com/automate-pelican-with-git.html
-    subprocess.call(blog_dir + 'publish.sh', GIT_USERNAME, shell=True)
+    subprocess.call('publish.sh', shell=True)
 
 
 def copy_notebook(notebook_path, blog_dir, title):
     """
     Moves notebook from its original location to the blog directory. Removes space.
     """
+    if not os.exists
     copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
                                   title + '.ipynb')
 
