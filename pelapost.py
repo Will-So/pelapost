@@ -18,6 +18,7 @@ import re
 BLOG_DIR = config.BLOG_DIR
 AUTHOR = config.AUTHOR
 POSTED_DIR = config.POSTED_DIR
+GIT_USER_NAME = config.GIT_USER_NAME
 
 
 @click.command()
@@ -62,7 +63,7 @@ def make_md(blog_dir, title, tags, category):
         1. blog_dir/content exits. This should be the case as long as Pelican is configured
     """
     md_dir = os.path.join(blog_dir, 'content/', title +'.md')
-    slug = title[:10] # Truncates the title if the slug is too long
+    slug = title[:15] if len(title) > 15 else title # Truncates the title if the slug is too long
 
     if not os.path.exists(blog_dir):
         raise IOError("Can't find {}. Check that it exists and that it is accessible.".format(blog_dir))
@@ -92,7 +93,7 @@ def publish(blog_dir):
     """
     # http://stackoverflow.com/questions/13745648/running-bash-script-from-within-python
     # http://www.textandhubris.com/automate-pelican-with-git.html
-    subprocess.call(blog_dir + 'publish.sh')
+    subprocess.call(blog_dir + 'publish.sh', GIT_USERNAME, shell=True)
 
 
 def copy_notebook(notebook_path, blog_dir, title):
