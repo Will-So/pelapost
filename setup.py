@@ -5,7 +5,7 @@ setup(
     version='0.1',
     py_modules=['pelapost'],
     install_requires=[
-        'Click',
+        'click', 'arrow'
     ],
     entry_points='''
         [console_scripts]

@@ -55,3 +55,10 @@ def del_files(request):
             os.remove(TEST_DIR + 'test.md')
     request.addfinalizer(fin)
     return del_files
+
+
+def test_no_space():
+    """
+    tests that no space is in the thing
+    :return:
+    """

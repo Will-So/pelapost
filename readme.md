@@ -1,6 +1,7 @@
 # Pelican Auto Post
 This CLI allows posting Ipython notebooks to your Pelican-powered blog.
 
+- Add time 
 
 # Example
 Once installed and the config file is edited:
@@ -23,10 +24,22 @@ We first need to configure the
 It is also possible to configure your computer so we can all the script from any directory in the terminal. 
 If you have never done this before, the steps are as follows:
 
-1. Make a directory where you will store this and future CLIs. The directory I use is `~/scripts`. I also renamed this script to pac 
-for convenience. 
-2. Append this directory to your PYTHON_PATH. In OS X this is done by editing the `.bash_profile` file in the home directory. 
-For me this is `PYTHONPATH=“:/Users/Will/Devel:/Users/Will/scripts”` 
+1.  Install the liquid tags pelican plugin and add it to your configuration file
+    - In the configuration file add the following lines:
+    
+        `PLUGIN_PATH = '/path/to/pelican-plugins'`
+        `PLUGINS = ['liquid_tags.notebook']`
+        `NOTEBOOK_DIR = 'notebooks'`
+    - In your theme's CSS header template add
+    
+    ```html
+     {% if EXTRA_HEADER %}
+     {{ EXTRA_HEADER }}
+     {% endif %}
+       ```
+
+        
+2. Run the setup script with python setup.py install
     
 
 
@@ -39,7 +52,7 @@ It also must have permission to execute the shell script. Both of these can be a
 
 # TODO
 
-[ ]  Make a one time configuration option to set the default blog directory without changing the code
+[x]  Make a one time configuration option to set the default blog directory without changing the code
 [ ] Test functionality one more time. Write appropriate unit tests (clean-up and tag handling)
 [ ] Allow notebook path to be the current path
 

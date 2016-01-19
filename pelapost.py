@@ -48,7 +48,7 @@ def _main(blog_dir, notebook_path, title, tags, category):
     if not title:
         title = os.path.basename(notebook_path)  # extracts only the file name from the full dir
     title_no_space = re.sub('\s+', '_', title)
-    make_md(blog_dir, title_no_space, tags, category)
+    make_md(blog_dir, title, tags, category)
     copy_notebook(notebook_path, blog_dir, title_no_space)
     publish(blog_dir)
     clean_notebook_path(notebook_path, title, POSTED_DIR)
@@ -61,7 +61,7 @@ def make_md(blog_dir, title, tags, category):
     Assumptions:
         1. blog_dir/content exits. This should be the case as long as Pelican is configured
     """
-    md_dir = os.path.join(blog_dir, 'content/', title +'.md')
+    md_dir = os.path.join(blog_dir, 'content/', title + '.md')
     slug = title[:15] if len(title) > 15 else title # Truncates the title if the slug is too long
 
     if not os.path.exists(blog_dir):
@@ -99,9 +99,10 @@ def copy_notebook(notebook_path, blog_dir, title):
     """
     Moves notebook from its original location to the blog directory. Removes space.
     """
-    if not os.exists
-    copy_full_path = os.path.join(blog_dir, 'content/notebooks/',
-                                  title + '.ipynb')
+    copy_path = os.path.join(blog_dir, 'content/notebooks/')
+    if not os.path.exists(copy_path):
+        os.mkdir(copy_path)
+    copy_full_path = os.path.join(copy_path, title + '.ipynb')
 
     shutil.copy(notebook_path, copy_full_path)
 
