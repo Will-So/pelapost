@@ -82,7 +82,8 @@ def make_md(blog_dir, title, tags, category):
                     "{{% notebook {6}.ipynb %}}\n"
                     "        "
                     ).format(title, arrow.utcnow().date(), category,
-                             tags.replace(' ', ', '), slug, AUTHOR, title.replace(' ', '_')))
+                             tags.replace(' ', ', '), slug, AUTHOR,
+                             title.replace(' ', '_')))
 
 
 def publish(blog_dir):
@@ -93,7 +94,8 @@ def publish(blog_dir):
     # http://stackoverflow.com/questions/13745648/running-bash-script-from-within-python
     # http://www.textandhubris.com/automate-pelican-with-git.html
     subprocess.call('''cd {};
-                    pelican content -o output -s pelicanconf.py;ghp-import output;
+                    pelican content -o output -s pelicanconf.py;
+                    ghp-import output;
                     git push origin gh-pages:master'''.format(blog_dir), shell=True)
 
 
