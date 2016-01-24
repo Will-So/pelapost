@@ -92,7 +92,9 @@ def publish(blog_dir):
     """
     # http://stackoverflow.com/questions/13745648/running-bash-script-from-within-python
     # http://www.textandhubris.com/automate-pelican-with-git.html
-    subprocess.call('publish.sh', shell=True)
+    subprocess.call('''cd {};
+                    pelican content -o output -s pelicanconf.py;ghp-import output;
+                    git push origin gh-pages:master'''.format(blog_dir), shell=True)
 
 
 def copy_notebook(notebook_path, blog_dir, title):
